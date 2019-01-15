@@ -1,12 +1,21 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 8080;
 const fs = require('fs');
+
 
 //middleware to read req.body
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); //this allow all client with everything domain to access our api
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+})
 
 
 //GET Read
@@ -45,17 +54,19 @@ app.put("/update", (req, res)=>{
         }
       }
     }
-    console.log(json);
+    fs.writeFile("todolist.json", JSON.stringify(json), function(err){
+      if (err) throw err;
+    });
   })
   res.send('Update successfully deleted');
 });
 
 //Delete Delete
-app.delete("/delete", (req, res)=>{
+app.delete("/delete/:id", (req, res)=>{
   fs.readFile('todolist.json', function (err, data) {
     var json = JSON.parse(data);
     for(let i = 0; i< json.todolist.length; i++){
-      if(json.todolist[i].id==req.body.id){
+      if(json.todolist[i].id==req.params.id){
         json.todolist.splice(i,1);
       }
     }
