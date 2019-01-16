@@ -20,8 +20,8 @@ app.use((req, res, next) => {
 
 //GET Read
 app.get("/", (req, res) => {
-  let dataList = fs.readFileSync('todolist.json');
-  res.json(JSON.parse(dataList));  
+  let dataList = JSON.parse(fs.readFileSync('todolist.json'));
+  res.json(dataList);  
 });
 
 //POST Created
