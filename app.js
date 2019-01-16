@@ -38,7 +38,7 @@ app.post("/post", (req, res) => {
       if (err) throw err;
     });
   })
-  res.json('Adding todo list successfully');
+  res.json({ "message": "Adding todo list successfully"});
 });
 
 //PUT Update
@@ -58,7 +58,7 @@ app.put("/update", (req, res)=>{
       if (err) throw err;
     });
   })
-  res.json('Update todo list successfully');
+  res.json({ "message" : "Update todo list successfully"});
 });
 
 //Delete Delete
@@ -74,7 +74,7 @@ app.delete("/delete/:id", (req, res)=>{
       if (err) throw err;
     });
   })
-  res.json("Deleting todo list successfully");
+  res.json({"message" : "Deleting todo list successfully"});
 });
 
 app.listen(port, () => console.log(`coba ${port}!`));
