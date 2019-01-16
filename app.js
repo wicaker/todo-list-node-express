@@ -20,8 +20,8 @@ app.use((req, res, next) => {
 
 //GET Read
 app.get("/", (req, res) => {
-  let rawdata = fs.readFileSync('todolist.json');
-  res.send(rawdata);  
+  let dataList = fs.readFileSync('todolist.json');
+  res.json(JSON.parse(dataList));  
 });
 
 //POST Created
@@ -38,7 +38,7 @@ app.post("/post", (req, res) => {
       if (err) throw err;
     });
   })
-  res.json({todoList});
+  res.json('Adding todo list successfully');
 });
 
 //PUT Update
@@ -58,7 +58,7 @@ app.put("/update", (req, res)=>{
       if (err) throw err;
     });
   })
-  res.send('Update successfully deleted');
+  res.json('Update todo list successfully');
 });
 
 //Delete Delete
@@ -74,7 +74,7 @@ app.delete("/delete/:id", (req, res)=>{
       if (err) throw err;
     });
   })
-  res.send("deleted file successfully");
+  res.json("Deleting todo list successfully");
 });
 
 app.listen(port, () => console.log(`coba ${port}!`));
